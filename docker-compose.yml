@@ -1,0 +1,15 @@
+services:
+  baishun-game-server:
+    env_file:
+      - .env
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: /bin/sh -c 'python src/main.py'
+    restart: always
+
