@@ -1,5 +1,8 @@
 import random, os, hashlib, time
 
+def app_secret_key():
+    return os.getenv('APP_SECRET_KEY')
+
 def generate_signature(signature_nonce, app_key, timestamp):
     data = f"{signature_nonce}{app_key}{timestamp}"
     h = hashlib.md5()
