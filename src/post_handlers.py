@@ -147,8 +147,10 @@ def get_user_info(request_data, user_data):
                 "message": "succeed",
                 "unique_id": str(current_timestamp_unix_time_ms) + os.urandom(8).hex(),
                 "data" : {
-                    "ss_token": token,
-                    "expire_date": expire
+                    "user_id": request_data['user_id'],
+                    "user_name" : user_data[request_data['user_id']].get('user_name', ''),
+                    "user_avatar" : user_data[request_data['user_id']].get('user_avatar', ''),
+                    "balance" : user_data[request_data['user_id']].get('balance', 0)
                 }
             }
     print(user_data)
