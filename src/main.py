@@ -10,7 +10,7 @@ load_dotenv()
 
 # Enable logging
 logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.DEBUG
 )
 logging.getLogger("httpx").setLevel(logging.DEBUG)
 logger = logging.getLogger(__name__)
@@ -23,10 +23,36 @@ user_data = {}
 
 app = Flask(__name__)
 
+@app.before_request
+def log_request_info():
+    try:
+        app.logger.debug('Request Headers: %s', request.headers)
+        app.logger.debug('Request Body: %s', request.get_data())
+    except Exception as e:
+        app.logger.error('Error logging request info: %s', e)
+
+@app.after_request
+def log_response_info(response):
+    try:
+        app.logger.debug('Response Status: %s', response.status)
+        app.logger.debug('Response Headers: %s', response.headers)
+        app.logger.debug('Response Body: %s', response.get_data())
+    except Exception as e:
+        app.logger.error('Error logging response info: %s', e)
+
+    return response
+
 @app.route('/v1/api/get_sstoken', methods=['POST'])
 def api_get_sstoken():
     request_data = request.get_json()
     response_data = post_handlers.get_sstoken(request_data, user_data)
+    return jsonify(response_data)
+
+#https://baishun.badsantos.com/v1/api/update_sstoken
+@app.route('/v1/api/update_sstoken', methods=['POST'])
+def api_update_sstoken():
+    request_data = request.get_json()
+    response_data = post_handlers.update_sstoken(request_data, user_data)
     return jsonify(response_data)
 
 @app.route('/v1/api/get_user_info', methods=['POST'])
