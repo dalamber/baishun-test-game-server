@@ -35,7 +35,7 @@ def get_sstoken(request_data, user_data):
         expire = user_data[request_data['user_id']].get('ss_token_expire')
     else:
         token = generate_ss_token()
-        expire = current_timestamp_unix_time_ms + 86400000 * 30 # in 30 days
+        expire = current_timestamp_unix_time_ms + + 1000 * 60 # in 1 minute
         user_data[request_data['user_id']] = { 
             'ss_token': token, 
             'ss_token_expire' : expire,
@@ -79,7 +79,7 @@ def update_sstoken(request_data, user_data):
     current_timestamp_unix_time_ms = int(time.time() * 1000)
 
     token = generate_ss_token()
-    expire = current_timestamp_unix_time_ms + 86400000 * 30 # in 30 days
+    expire = current_timestamp_unix_time_ms + 1000 * 60 # in 1 minute
     user_data[request_data['user_id']]['ss_token'] = token
     user_data[request_data['user_id']]['ss_token_expire'] = expire
 
@@ -137,7 +137,7 @@ def get_user_info(request_data, user_data):
         expire = user_data[request_data['user_id']].get('ss_token_expire')
     else:
         token = generate_ss_token()
-        expire = current_timestamp_unix_time_ms + 86400000 * 30 # in 30 days
+        expire = current_timestamp_unix_time_ms + 1000 * 60 # in 1 minute
         user_data[request_data['user_id']] = { 
             'ss_token': token, 
             'ss_token_expire' : expire,
