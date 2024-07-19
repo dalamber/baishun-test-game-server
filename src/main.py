@@ -26,6 +26,7 @@ app = Flask(__name__)
 @app.before_request
 def log_request_info():
     try:
+        app.logger.debug('Request Path: %s', request.path)
         app.logger.debug('Request Headers: %s', request.headers)
         app.logger.debug('Request Body: %s', request.get_data())
     except Exception as e:
