@@ -53,7 +53,6 @@ def get_sstoken(request_data, user_data):
                     "expire_date": expire
                 }
             }
-    print(user_data)
     return response
 
 def update_sstoken(request_data, user_data):
@@ -93,7 +92,6 @@ def update_sstoken(request_data, user_data):
                     "expire_date": expire
                 }
             }
-    print(user_data)
     return response
 
 
@@ -159,7 +157,6 @@ def get_user_info(request_data, user_data):
                     "balance" : user_data[request_data['user_id']].get('balance', 0)
                 }
             }
-    print(user_data)
     return response
 
 def change_balance(request_data, user_data):
