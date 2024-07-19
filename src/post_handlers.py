@@ -41,7 +41,7 @@ def get_sstoken(request_data, user_data):
             'ss_token_expire' : expire,
             'user_name': get_random_user_name(),
             'user_avatar': 'Unknown',
-            'balance': random.randint(100, 1000)
+            'balance': random.randint(10000, 20000)
             }
 
     response = {
@@ -99,26 +99,32 @@ def update_sstoken(request_data, user_data):
 
 
 def get_user_info(request_data, user_data):
-      # EXAMPLE REQUEST DATA FROM DOCS
+    # EXAMPLE REQUEST DATA FROM DOCS
+    # req:
     # {
-    #     "app_id":21397507,
-    #     "user_id":"id1001",
-    #     "code":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ" ,
-    #     "signature":"c62d04ebdb5100e475f45f5ebe8c64ee",
-    #     "signature_nonce":"5f0eb04d7603a9d8",
-    #     "timestamp":1682674598
+    # "app_id":21397507,
+    # "user_id":"id1001",
+    # "ss_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+    # "client_ip":"110.86.1.130",
+    # "game_id":1010,
+    # "signature":"c62d04ebdb5100e475f45f5ebe8c64ee",
+    # "signature_nonce":"5f0eb04d7603a9d8",
+    # "timestamp":1682674598
+    # }
+    #
+    # # EXAMPLE RESPONSE DATA FROM DOCS
+    # rsp:
+    # {
+    # "code": 0,
+    # "message": "succeed",
+    # "unique_id": "1603289980002643968",
+    # "data": {
+    # "user_id": "id1001",
+    # "user_name": "tom",
+    # "user_avatar": "avatar.com",
+    # "balance":1000
     # }
 
-    # EXAMPLE RESPONSE DATA FROM DOCS
-    # {
-    #     "code": 0,
-    #     "message": "succeed",
-    #     "unique_id": "1682674739807011000",
-    #     "data": {
-    #         "ss_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
-    #         "expire_date": 1671096189000
-    #     }
-    # }
 
     validate_signature(request_data['signature'], request_data['signature_nonce'], app_secret_key(), request_data['timestamp'])
 
@@ -139,7 +145,7 @@ def get_user_info(request_data, user_data):
             'ss_token_expire' : expire,
             'user_name': get_random_user_name(),
             'user_avatar': 'Unknown',
-            'balance': random.randint(100, 1000)
+            'balance': random.randint(10000, 20000)
             }
 
     response = {
