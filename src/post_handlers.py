@@ -202,7 +202,7 @@ def change_balance(request_data, user_data):
             "message": "succeed",
             "unique_id": str(int(time.time() * 1000)) + os.urandom(8).hex(),
             "data": {
-                "balance": user_info.get('balance', 0)
+                "currency_balance": user_info.get('balance', 0)
             }
         }
     return response

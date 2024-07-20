@@ -14,3 +14,15 @@ jobs:
           docker build . --tag ghcr.io/dalamber/baishun-game-server-ghcr:latest
           docker push ghcr.io/dalamber/baishun-game-server-ghcr:latest
         
+      - name: SSH and Deploy
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: baishun.badsantos.com
+          username: ${{ secrets.PRODUCTION_USER }}
+          key: ${{ secrets.PRODUCTION_PRIVATE_KEY }}
+          script: |
+              cd ~/production/baishun-game-server
+              docker compose down
+              docker compose pull
+              docker compose up -d
+  
