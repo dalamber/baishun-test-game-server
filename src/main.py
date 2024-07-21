@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, send_from_directory, redirect, url_for
+from flask_cors import CORS
 import os
 import json
 from helpers import *
@@ -111,6 +112,7 @@ def page_not_found(e):
 
 if __name__ == "__main__":
     try:
+        CORS(app)
         from waitress import serve
         serve(app, host="0.0.0.0", port=PORT, _quiet=False)
     except KeyboardInterrupt:
