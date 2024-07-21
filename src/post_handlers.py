@@ -22,7 +22,8 @@ def get_sstoken(request_data, user_data):
     #     }
     # }
 
-    validate_signature(request_data['signature'], request_data['signature_nonce'], app_secret_key(), request_data['timestamp'])
+    is_signature_valid = validate_signature(request_data['signature'], request_data['signature_nonce'], app_secret_key(), request_data['timestamp'])
+    # fail request if signature is invalid
 
 
     current_timestamp_unix_time_ms = int(time.time() * 1000)
@@ -74,7 +75,8 @@ def update_sstoken(request_data, user_data):
     #     "ss_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"， //updated ss_token
     #     "expire_date": 1671096189000 //Expiration timestamp, milliseconds
     # }
-    validate_signature(request_data['signature'], request_data['signature_nonce'], app_secret_key(), request_data['timestamp'])
+    is_signature_valid = validate_signature(request_data['signature'], request_data['signature_nonce'], app_secret_key(), request_data['timestamp'])
+    # fail request if signature is invalid
 
     current_timestamp_unix_time_ms = int(time.time() * 1000)
 
@@ -124,7 +126,8 @@ def get_user_info(request_data, user_data):
     # }
 
 
-    validate_signature(request_data['signature'], request_data['signature_nonce'], app_secret_key(), request_data['timestamp'])
+    is_signature_valid = validate_signature(request_data['signature'], request_data['signature_nonce'], app_secret_key(), request_data['timestamp'])
+    # fail request if signature is invalid
 
 
     current_timestamp_unix_time_ms = int(time.time() * 1000)
@@ -186,7 +189,8 @@ def change_balance(request_data, user_data):
     #     "currency_balance": 900 //total remaining value
     # }
 
-    validate_signature(request_data['signature'], request_data['signature_nonce'], app_secret_key(), request_data['timestamp'])
+    is_signature_valid = validate_signature(request_data['signature'], request_data['signature_nonce'], app_secret_key(), request_data['timestamp'])
+    # fail request if signature is invalid
 
     if request_data['user_id'] in user_data:
         user_info = user_data[request_data['user_id']]

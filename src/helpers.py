@@ -17,7 +17,6 @@ def generate_ss_token():
 
 def validate_signature(signature, signature_nonce, app_key, timestamp):
     expected = generate_signature(signature_nonce, app_key, timestamp)
-    print(f"Expected signature: {expected}, Actual signature: {signature}")
     return signature == expected
 
 def get_random_user_name():
