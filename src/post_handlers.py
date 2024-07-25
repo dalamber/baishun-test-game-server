@@ -41,7 +41,7 @@ def get_sstoken(request_data, user_data):
             'ss_token': token, 
             'ss_token_expire' : expire,
             'user_name': get_random_user_name(),
-            'user_avatar': 'Unknown',
+            'user_avatar': 'https://baishun.badsantos.com/default_userpic.png',
             'balance': random.randint(10000, 20000)
             }
 
@@ -145,7 +145,7 @@ def get_user_info(request_data, user_data):
             'ss_token': token, 
             'ss_token_expire' : expire,
             'user_name': get_random_user_name(),
-            'user_avatar': 'Unknown',
+            'user_avatar': 'https://baishun.badsantos.com/default_userpic.png',
             'balance': random.randint(10000, 20000)
             }
 
