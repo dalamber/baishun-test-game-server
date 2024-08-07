@@ -90,6 +90,12 @@ def api_change_balance():
     response_data = post_handlers.change_balance(request_data, user_data)
     return jsonify(response_data)
 
+@app.route('/get_game_info', methods=['GET'])
+def get_game_info():
+    response_data = post_handlers.get_game_info(request)
+    return response_data.json()
+    
+
 @app.route('/')
 def serve_index():
     return send_from_directory(RESOURCE_DIR, 'index.html')

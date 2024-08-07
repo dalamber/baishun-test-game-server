@@ -1,4 +1,6 @@
 from helpers import *
+from flask import request, jsonify
+import requests
 
 def get_sstoken(request_data, user_data):
     # EXAMPLE REQUEST DATA FROM DOCS
@@ -209,4 +211,27 @@ def change_balance(request_data, user_data):
                 "currency_balance": user_info.get('balance', 0)
             }
         }
+    return response
+
+def get_game_info(request):
+    game_id = int(request.args.get('game_id'))
+
+    current_timestamp_unix_time_ms = int(time.time())
+    nonce = generate_signature_nonce()
+    signature = generate_signature(nonce, app_secret_key(), current_timestamp_unix_time_ms)
+
+    payload = {
+        "signature": signature,
+        "timestamp": current_timestamp_unix_time_ms,
+        "signature_nonce": nonce,
+        "app_channel": app_channel(),
+        "app_id": int(app_id()),
+        "game_id": game_id
+    }
+
+    print(f"Payload: {payload}")
+    print(f"Validate Signature: {validate_signature(payload['signature'], payload['signature_nonce'], app_secret_key(), payload['timestamp'])}")
+
+    response = requests.post("http://game-cn-test.jieyou.shop:7001/query_voice_room", json=payload)
+
     return response
